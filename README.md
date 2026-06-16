@@ -1,6 +1,6 @@
-# 🩺 Skin Lesion Classification using GAN-Based Data Balancing
+# Skin Lesion Classification using GAN-Based Data Balancing
 
-## 📌 Overview
+## Overview
 This project focuses on **skin lesion classification** using deep learning on the HAM10000 dataset, addressing the critical issue of **class imbalance**.
 
 We compare three approaches:
@@ -12,7 +12,7 @@ The GAN-based approach significantly improves performance, especially for rare a
 
 ---
 
-## 🚨 Problem Statement
+## Problem Statement
 The HAM10000 dataset is **highly imbalanced**:
 - Majority class dominates (Melanocytic Nevi)
 - Rare classes (e.g., Dermatofibroma, Melanoma) have very few samples
@@ -24,19 +24,19 @@ This causes:
 
 ---
 
-## 💡 Proposed Solution
+## Proposed Solution
 We use **per-class DCGANs** to generate synthetic images and fully balance the dataset.
 
-### 🔹 Key Idea
+### Key Idea
 - Learn class distributions using GANs  
 - Generate **new synthetic samples**  
 - Create a **fully balanced dataset**
 
 ---
 
-## 🧠 Model Architecture
+## Model Architecture
 
-### 🔹 Classifier: ResNet-18 (Transfer Learning)
+### Classifier: ResNet-18 (Transfer Learning)
 - Pretrained on ImageNet  
 - Modified classification head:
   ```
@@ -46,20 +46,20 @@ We use **per-class DCGANs** to generate synthetic images and fully balance the d
   → FC(256 → 7)
   ```
 
-### 🔹 Training Strategy
+### Training Strategy
 - **Phase 1:** Freeze backbone, train head  
 - **Phase 2:** Fine-tune entire network  
 
 ---
 
-### 🔹 GAN Model: DCGAN
+### GAN Model: DCGAN
 - One GAN per class  
 - Input: 100-dim noise vector  
 - Output: 64×64 RGB image  
 
 ---
 
-## 📂 Project Structure
+## Project Structure
 
 ```
 ├── 01_eda.ipynb
@@ -74,9 +74,9 @@ We use **per-class DCGANs** to generate synthetic images and fully balance the d
 
 ---
 
-## 🔬 Experiments
+## Experiments
 
-### 🔹 Experiment A — Baseline CNN
+### Experiment A — Baseline CNN
 - No augmentation  
 - Uses weighted loss  
 
@@ -84,21 +84,21 @@ We use **per-class DCGANs** to generate synthetic images and fully balance the d
 
 ---
 
-### 🔹 Experiment B — Standard Augmentation
+### Experiment B — Standard Augmentation
 - Flip, rotation, color jitter, affine transforms  
 
 **Macro F1:** 0.4733  
 
 ---
 
-### 🔹 Experiment C — GAN-Based Balancing
+### Experiment C — GAN-Based Balancing
 - Fully balanced dataset  
 
-**Macro F1:** **0.6680** ✅  
+**Macro F1:** **0.6680**
 
 ---
 
-## 📊 Results Summary
+## Results Summary
 
 | Experiment | Macro F1 |
 |-----------|---------|
@@ -108,28 +108,28 @@ We use **per-class DCGANs** to generate synthetic images and fully balance the d
 
 ---
 
-### 🔥 Key Improvements
+### Key Improvements
 - Dermatofibroma: 0.385 → 0.625  
 - Melanoma: 0.283 → 0.514  
 - All classes improved  
 
 ---
 
-## 🔍 Grad-CAM Visualization
+## Grad-CAM Visualization
 
 We use **Grad-CAM** to interpret model predictions.
 
-### 🔹 Purpose
+### Purpose
 - Visualize model attention  
 - Verify meaningful feature learning  
 
-### 🔹 Observations
+### Observations
 - Baseline → scattered attention  
 - GAN model → focused on lesion  
 
 ---
 
-## ⚙️ Techniques Used
+## Techniques Used
 - Transfer Learning (ResNet-18)  
 - GAN-based Data Augmentation (DCGAN)  
 - Weighted Sampling  
@@ -138,7 +138,7 @@ We use **Grad-CAM** to interpret model predictions.
 
 ---
 
-## 🧪 Evaluation Metrics
+## Evaluation Metrics
 - Precision  
 - Recall  
 - F1-score  
@@ -146,7 +146,7 @@ We use **Grad-CAM** to interpret model predictions.
 
 ---
 
-## 🚀 How to Run
+## How to Run
 
 ### 1. Clone repository
 ```bash
@@ -166,26 +166,6 @@ pip install -r requirements.txt
 03_dcgan_allclass.ipynb
 04_comparison.ipynb
 ```
-
----
-
-## 📈 Future Work
-- Replace DCGAN with diffusion models  
-- Generate higher resolution images  
-- Use conditional GAN  
-- Quantify Grad-CAM results  
-
----
-
-## 📚 References
-- HAM10000 Dataset  
-- GAN (Goodfellow et al.)  
-- DCGAN (Radford et al.)  
-- ResNet (He et al.)  
-
----
-
-## 🙌 Conclusion
 GAN-based data balancing:
 - Solves extreme class imbalance  
 - Improves classification performance  
